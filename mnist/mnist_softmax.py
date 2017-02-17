@@ -73,7 +73,7 @@ def main(_):
     #train
     for _ in range(1000):
         batch_xs, batch_ys = mnist.train.next_batch(100)
-        sess.run(train_step, feed_dict={x: batch_xs, y_ batch_ys})
+        sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
 
     #test model after training
@@ -83,7 +83,11 @@ def main(_):
     #cast to floating point to get percentages
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-    print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels)))
+    print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+
+
+
+tf.app.run(main=main)
     
     
     
