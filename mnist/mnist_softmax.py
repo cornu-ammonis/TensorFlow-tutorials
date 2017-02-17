@@ -52,6 +52,13 @@ def main(_):
 
     #defines model
     y = tf.matmul(x, W) + b
+
+    #placeholder to input correct answers
+    y_ = tf.placeholder(tf.float32, [None, 10])
+
+    #uses built in tf.nn.softmax_cross_entropy_with_logits because raw forumation of cross entropy can be unstable
+
+    
     
 
     
