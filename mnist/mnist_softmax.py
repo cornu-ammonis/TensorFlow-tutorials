@@ -56,6 +56,24 @@ def main(_):
     #placeholder to input correct answers
     y_ = tf.placeholder(tf.float32, [None, 10])
 
+    #--first convolutional layer--
+
+    #will compute 32 features for each 5x5 patch. first 2 dimensions are patch size, next is number input channels
+    #last is the number of output channels
+    W_conv1 = weight_variable([5, 5, 1, 32])
+
+    #bias vector with component for each output channel
+    b_conv1 = bias_variable([32])
+
+
+    #reshapes x as a 4d tensor, 2nd and 3rd are width and height, 4th is number color channels
+    x_image = tf.reshape(x, [-1, 28, 28, 1])
+
+    #convolve x_image with weight tensor, add bias, apply ReLU, and then max pool. max pool method will reduce
+    #image to 14x14
+    h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
+    h_pool1 = max_pool_2x2(h_conv1)
+    
     #uses built in tf.nn.softmax_cross_entropy_with_logits because raw formulation of cross entropy can be unstable
     cross_entropy = tf.reduce_mean(
         tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
@@ -93,7 +111,7 @@ def weight_variable(shape):
 
 #initialize with slightly positive bias to avoid dead neurons
 def bias_variable(shape):
-    initial = tf.constant(o.1, shape=shape)
+    initial = tf.constant(0.1, shape=shape)
     return tf.Variable(initial)
 
 #convolutions with stride of 1 and zero padded so that output is same size as input
