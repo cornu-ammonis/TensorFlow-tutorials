@@ -56,8 +56,18 @@ def main(_):
     #placeholder to input correct answers
     y_ = tf.placeholder(tf.float32, [None, 10])
 
-    #uses built in tf.nn.softmax_cross_entropy_with_logits because raw forumation of cross entropy can be unstable
+    #uses built in tf.nn.softmax_cross_entropy_with_logits because raw formulation of cross entropy can be unstable
+    cross_entropy = tf.reduce_mean(
+        tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
+    
+    #tells tensorflow to minimize cross_entropy by using gradient descent with rate .5 - this shifts each
+    #variable a bit in the direction which minimizes cross entropy
+    train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
+    #launch model
+    sess = tf.InteractiveSession()
+
+    #initialize variables
     
     
 
