@@ -46,6 +46,12 @@ def main(_):
     #each class (per image)
     W = tf.Variable(tf.zeros([784, 10]))
     b = tf.Variable(tf.zeros([10]))
+
+    #to get output of batches x 10weights,
+    #one must do tf.matmul(x, W) because x is batchsize x numberpixels and W is numPixels x 10
+
+    #defines model
+    y = tf.nn.softmax(tf.matmul(x, W) + b)
     
 
     
