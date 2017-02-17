@@ -41,3 +41,11 @@ def main(_):
 
     x = tf.placeholder(tf.float32, [None, 784])
     
+    #initializes Weights and biases as tensors full of 0s
+    #note W is [784, 10] because we want to multiply the 784d vectors by it to produce 10d vectors of evidence for
+    #each class (per image)
+    W = tf.Variable(tf.zeros([784, 10]))
+    b = tf.Variable(tf.zeros([10]))
+    
+
+    
