@@ -73,6 +73,18 @@ def main(_):
     #image to 14x14
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
+
+    #--second convolutional layer--
+    #64 features
+    W_conv2 = weight_variable([5, 5, 32, 64])
+    b_conv2 = bias_variable([64])
+
+    #convolves first layer pool with second layer weights, applies scecond layer bias, and applies relu
+    #max pool reduces to 7X7
+    h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
+    h_pool2 = max_pool_2x2(h_conv2)
+
+    
     
     #uses built in tf.nn.softmax_cross_entropy_with_logits because raw formulation of cross entropy can be unstable
     cross_entropy = tf.reduce_mean(
