@@ -35,3 +35,9 @@ import tensorflow as tf
 def main(_):
     
     mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+
+    #this is a placeholder -- one can input any number of MNIST images flattened into a 784d vector
+    #here None means that a dimension can be of any length
+
+    x = tf.placeholder(tf.float32, [None, 784])
+    
