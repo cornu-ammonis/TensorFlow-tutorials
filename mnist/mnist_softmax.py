@@ -71,7 +71,7 @@ def main(_):
     tf.global_variables_initializer().run()
 
     #train
-    for _ in range(1000):
+    for _ in range(10000):
         batch_xs, batch_ys = mnist.train.next_batch(100)
         sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
@@ -85,6 +85,24 @@ def main(_):
 
     print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 
+
+#initialize weights with small amount of noise for symmetry breaking and prevention of 0 gradients
+def weight_variable(shape):
+    initial = tf.truncated_normal(shape, stddev=0.1)
+    return tf.Variable(initial)
+
+#initialize with slightly positive bias to avoid dead neurons
+def bias_variable(shape):
+    initial = tf.constant(o.1, shape=shape)
+    return tf.Variable(initial)
+
+#convolutions with stride of 1 and zero padded so that output is same size as input
+def conv2d(x, W):
+    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
+
+#'plain old max pooling over 2x2 blocks'
+def max_pool_2x2(x):
+    return tf.nn.max_pool(x, ksize= [1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
 
 tf.app.run(main=main)
