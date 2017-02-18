@@ -122,6 +122,13 @@ def main(_):
     #variable a bit in the direction which minimizes cross entropy
     train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
 
+    #test model after training
+    #argmax(y_conv,1) will give the label our model believes is correct. tf.argmax(y_, 1) will give correct label.
+    correct_prediction = tf.equal(tf.argmax(y_conv,1), tf.argmax(y_, 1))
+
+    #cast to floating point to get percentages
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
     #launch model
     sess = tf.InteractiveSession()
 
@@ -134,12 +141,9 @@ def main(_):
         sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
 
-    #test model after training
-    #argmax(y,1) will give the label our model believes is correct. tf.argmax(y_, 1) will give correct label.
-    correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_, 1))
+    
 
-    #cast to floating point to get percentages
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    
 
     print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 
