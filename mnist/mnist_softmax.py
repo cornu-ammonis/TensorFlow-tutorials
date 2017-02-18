@@ -74,7 +74,7 @@ def main(_):
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
 
-    #--SECOND CONVOLUTIONAL LAYER--
+    #-- SECOND CONVOLUTIONAL LAYER --
 
     #64 features
     W_conv2 = weight_variable([5, 5, 32, 64])
@@ -85,7 +85,7 @@ def main(_):
     h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
     h_pool2 = max_pool_2x2(h_conv2)
 
-    #---DENSELY CONNECTED LAYER---
+    #--- DENSELY CONNECTED LAYER ---
 
     #fully connected wiht 1024 neurons. reshape pooling tensor into batch of vectors,
     #multiply by weight matrix, add bias, apply relu
@@ -94,6 +94,8 @@ def main(_):
 
     h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*64])
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+
+    #--- DROPOUT ---
     
     #uses built in tf.nn.softmax_cross_entropy_with_logits because raw formulation of cross entropy can be unstable
     cross_entropy = tf.reduce_mean(
