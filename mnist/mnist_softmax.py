@@ -129,12 +129,12 @@ def main(_):
     #cast to floating point to get percentages
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-    #launch model
+    #launch model and initializes variables
     sess = tf.InteractiveSession()
 
-    #initialize variables
-    tf.global_variables_initializer().run()
+    sess.run(tf.global_variables_initializer())
 
+   
     #train
     for _ in range(10000):
         batch_xs, batch_ys = mnist.train.next_batch(100)
