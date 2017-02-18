@@ -106,6 +106,13 @@ def main(_):
 
     keep_prob = tf.placeholder(tf.float32)
     h_fc1_drop = tf.nn.dropout(h_fc1, keep prob)
+
+    # --- READOUT LAYER ---
+    W_fc2 = weight_variable([1024, 10])
+    b_fc2 = bias_variable([10])
+
+    y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
+
     
     #uses built in tf.nn.softmax_cross_entropy_with_logits because raw formulation of cross entropy can be unstable
     cross_entropy = tf.reduce_mean(
