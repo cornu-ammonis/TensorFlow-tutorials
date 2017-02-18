@@ -56,7 +56,7 @@ def main(_):
     #placeholder to input correct answers
     y_ = tf.placeholder(tf.float32, [None, 10])
 
-    #--first convolutional layer--
+    #--FIRST CONVOLUTIONAL LAYER--
 
     #will compute 32 features for each 5x5 patch. first 2 dimensions are patch size, next is number input channels
     #last is the number of output channels
@@ -74,7 +74,8 @@ def main(_):
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
 
-    #--second convolutional layer--
+    #--SECOND CONVOLUTIONAL LAYER--
+
     #64 features
     W_conv2 = weight_variable([5, 5, 32, 64])
     b_conv2 = bias_variable([64])
@@ -84,7 +85,8 @@ def main(_):
     h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
     h_pool2 = max_pool_2x2(h_conv2)
 
-    #---Densely Connected Layer---
+    #---DENSELY CONNECTED LAYER---
+
     #fully connected wiht 1024 neurons. reshape pooling tensor into batch of vectors,
     #multiply by weight matrix, add bias, apply relu
     W_fc1 = weight_variable([7 * 7 * 64, 1024])
