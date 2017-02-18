@@ -120,7 +120,7 @@ def main(_):
     
     #tells tensorflow to minimize cross_entropy by using gradient descent with rate .5 - this shifts each
     #variable a bit in the direction which minimizes cross entropy
-    train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+    train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
 
     #launch model
     sess = tf.InteractiveSession()
