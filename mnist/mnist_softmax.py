@@ -116,7 +116,7 @@ def main(_):
     
     #uses built in tf.nn.softmax_cross_entropy_with_logits because raw formulation of cross entropy can be unstable
     cross_entropy = tf.reduce_mean(
-        tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
+        tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_conv))
     
     #tells tensorflow to minimize cross_entropy by using gradient descent with rate .5 - this shifts each
     #variable a bit in the direction which minimizes cross entropy
