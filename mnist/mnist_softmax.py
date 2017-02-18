@@ -96,6 +96,16 @@ def main(_):
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 
     #--- DROPOUT ---
+    #dropout randomly eliminates neurons and their weights during training to prevent overtraining and
+    #too much coadaptation.
+    
+    #here we create a placeholder for the probability that a neuron is kept during dropout so that we can
+    #turn dropout on during training and off during testing.
+
+    #tf.nn.dropout automaticaly masks and scales neuron outputs so dropout requires no additional scaling
+
+    keep_prob = tf.placeholder(tf.float32)
+    h_fc1_drop = tf.nn.dropout(h_fc1, keep prob)
     
     #uses built in tf.nn.softmax_cross_entropy_with_logits because raw formulation of cross entropy can be unstable
     cross_entropy = tf.reduce_mean(
